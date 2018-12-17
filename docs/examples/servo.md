@@ -6,7 +6,7 @@ Control the angle of a servo using a light sensor.
 forever(function() {
     let brightness = pins.A1.analogRead();
     let angle = Math.map(brightness, 0, 1023, 0, 180);
-    pins.A1.servoWrite(angle)
+    pins.D2.servoWrite(angle)
 })
 ```
 

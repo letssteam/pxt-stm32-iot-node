@@ -1,7 +1,7 @@
 # Reference
 
 ```namespaces
-pins.A1.servoWrite(0)
+pins.D2.servoWrite(0)
 control.runInBackground(() => {})
 ```
 
