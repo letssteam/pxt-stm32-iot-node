@@ -1,12 +1,12 @@
 {
-    "name": "LCD",
-    "version": "0.0.1",
+    "name": "lcd",
+    "version": "0.0.2",
     "description": "A LCD driver",
     "files": [
         "README.md",
         "pxtparts.json",
         "LCD.svg",
-        "LCD.cpp",
+        "lcd.cpp",
         "lcd.ts",
         "target_lcd.h",
         "shims.d.ts",
