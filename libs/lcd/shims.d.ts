@@ -2,7 +2,7 @@
 declare namespace LCD {
 
     /**
-     * set cursor position at given position
+     * Set cursor position at given position
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
      */
@@ -16,7 +16,7 @@ declare namespace LCD {
     function setCursor(x: uint8, y: uint8): void;
 
     /**
-     * show a number in LCD at given position
+     * Show a number in LCD at given position
      * @param n is number will be show, eg: 10, 100, 200
      */
     //% blockId="LCD_SHOW_NUMBER" 
@@ -27,7 +27,7 @@ declare namespace LCD {
     function ShowNumber(n: int32): void;
 
     /**
-     * show a string in LCD at given position
+     * Show a string in LCD at given position
      * @param s is string will be show, eg: "Hello"
      */
     //% blockId="LCD_SHOW_STRING" 
@@ -38,7 +38,7 @@ declare namespace LCD {
     function ShowString(s: string): void;
 
     /**
-     * show a name:value pair in LCD at given position
+     * Show a name:value pair in LCD at given position
      * @param name : a string that is the name part of the name:value pair, eg: "x"
      * @param value : a number that is the value part of the name:value pair, eg: 0
      */
@@ -50,7 +50,7 @@ declare namespace LCD {
     function ShowValue(name: string, value: int32): void;
 
     /**
-     * clear all display content
+     * Clear all display content
      */
     //% blockId="LCD_CLEAR" 
     //% block="clear screen"
@@ -60,7 +60,7 @@ declare namespace LCD {
     function clear(): void;
 
     /**
-     * set LCD backlight color
+     * Set LCD backlight color
      * 
      * @param rgb RGB color of the backlight LED
      */
@@ -73,7 +73,7 @@ declare namespace LCD {
     function SetBacklightColor(rgb: uint32): void;
 
     /**
-     * turn on LCD backlight
+     * Turn on LCD backlight
      */
     //% blockId="LCD_BACKLIGHT_ON" 
     //% block="turn on backlight"
@@ -84,7 +84,7 @@ declare namespace LCD {
     function BacklightOn(): void;
 
     /**
-     * turn off LCD backlight
+     * Turn off LCD backlight
      */
     //% blockId="LCD_BACKLIGHT_OFF" 
     //% block="turn off backlight"
@@ -95,7 +95,7 @@ declare namespace LCD {
     function BacklightOff(): void;
 
     /**
-     * show a number in LCD at given position
+     * Show a number in LCD at given position
      * @param n is number will be show, eg: 10, 100, 200
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
@@ -111,7 +111,7 @@ declare namespace LCD {
     function ShowNumberAtPos(n: int32, x: uint8, y: uint8): void;
 
     /**
-     * show a string in LCD at given position
+     * Show a string in LCD at given position
      * @param s is string will be show, eg: "Hello"
      * @param x is LCD column position, [0 - 15], eg: 0
      * @param y is LCD row position, [0 - 1], eg: 0
