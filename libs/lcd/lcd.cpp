@@ -21,7 +21,7 @@ namespace LCD {
 
 
     /**
-     * set cursor position at given position
+     * Set cursor position at given position
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
      */
@@ -37,7 +37,7 @@ namespace LCD {
     }
 
     /**
-     * show a number in LCD at given position
+     * Show a number in LCD at given position
      * @param n is number will be show, eg: 10, 100, 200
      */
     //% blockId="LCD_SHOW_NUMBER" 
@@ -50,7 +50,7 @@ namespace LCD {
     }
 
     /**
-     * show a string in LCD at given position
+     * Show a string in LCD at given position
      * @param s is string will be show, eg: "Hello"
      */
     //% blockId="LCD_SHOW_STRING" 
@@ -63,7 +63,7 @@ namespace LCD {
     }
 
     /**
-     * show a name:value pair in LCD at given position
+     * Show a name:value pair in LCD at given position
      * @param name : a string that is the name part of the name:value pair, eg: "x"
      * @param value : a number that is the value part of the name:value pair, eg: 0
      */
@@ -79,7 +79,7 @@ namespace LCD {
     }
 
     /**
-     * clear all display content
+     * Clear all display content
      */
     //% blockId="LCD_CLEAR" 
     //% block="clear screen"
@@ -91,7 +91,7 @@ namespace LCD {
     }
 
     /**
-     * set LCD backlight color
+     * Set LCD backlight color
      * 
      * @param rgb RGB color of the backlight LED
      */
@@ -109,7 +109,7 @@ namespace LCD {
     }
 
     /**
-     * turn on LCD backlight
+     * Turn on LCD backlight
      */
     //% blockId="LCD_BACKLIGHT_ON" 
     //% block="turn on backlight"
@@ -122,7 +122,7 @@ namespace LCD {
     }
 
     /**
-     * turn off LCD backlight
+     * Turn off LCD backlight
      */
     //% blockId="LCD_BACKLIGHT_OFF" 
     //% block="turn off backlight"
@@ -136,7 +136,7 @@ namespace LCD {
     }
 
     /**
-     * show a number in LCD at given position
+     * Show a number in LCD at given position
      * @param n is number will be show, eg: 10, 100, 200
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
@@ -155,7 +155,7 @@ namespace LCD {
     }
 
     /**
-     * show a string in LCD at given position
+     * Show a string in LCD at given position
      * @param s is string will be show, eg: "Hello"
      * @param x is LCD column position, [0 - 15], eg: 0
      * @param y is LCD row position, [0 - 1], eg: 0
