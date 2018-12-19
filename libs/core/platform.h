@@ -53,10 +53,6 @@
 #define LIGHTSENSOR_LOW_THRESHOLD 128
 #define LIGHTSENSOR_HIGH_THRESHOLD 896
 
-#ifndef IMAGE_BITS
-#define IMAGE_BITS 1
-#endif
-
 #ifdef JUST_FOR_DAL_D_TS_CPP_WILL_IGNORE
 #define PA_0 0
 #define PA_1 1
