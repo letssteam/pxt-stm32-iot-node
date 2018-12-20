@@ -7,43 +7,6 @@ using namespace pxt;
  */
 //% color=#0082FB weight=96 icon="\uf294"
 namespace bluetooth {
-
-    /**
-    *  Starts the Bluetooth accelerometer service
-    */
-    //% help=bluetooth/start-accelerometer-service
-    //% blockId=bluetooth_start_accelerometer_service block="bluetooth accelerometer service"
-    //% parts="bluetooth" weight=90 blockGap=8
-    void startAccelerometerService() {       
-    }   
-
-    /**
-    *  Starts the Bluetooth button service
-    */
-    //% help=bluetooth/start-button-service
-    //% blockId=bluetooth_start_button_service block="bluetooth button service" blockGap=8
-    //% parts="bluetooth" weight=89
-    void startButtonService() {     
-    }
-
-    /**
-    *  Starts the Bluetooth IO pin service.
-    */
-    //% help=bluetooth/start-io-pin-service
-    //% blockId=bluetooth_start_io_pin_service block="bluetooth io pin service" blockGap=8
-    //% parts="bluetooth" weight=88
-    void startIOPinService() {
-    }
-
-    /**
-    *  Starts the Bluetooth LED service
-    */
-    //% help=bluetooth/start-led-service
-    //% blockId=bluetooth_start_led_service block="bluetooth led service" blockGap=8
-    //% parts="bluetooth" weight=87
-    void startLEDService() {
-    }
-
     /**
     *  Starts the Bluetooth temperature service
     */
@@ -54,79 +17,14 @@ namespace bluetooth {
     }
 
     /**
-    *  Starts the Bluetooth magnetometer service
-    */
-    //% help=bluetooth/start-magnetometer-service
-    //% blockId=bluetooth_start_magnetometer_service block="bluetooth magnetometer service"
-    //% parts="bluetooth" weight=85
-    void startMagnetometerService() {    
-    }
-
-    /**
-    *  Starts the Bluetooth UART service
-    */
-    //% help=bluetooth/start-uart-service
-    //% blockId=bluetooth_start_uart_service block="bluetooth uart service"
-    //% parts="bluetooth" advanced=true
-    void startUartService() {
-    }
-    
-    //%
-    void uartWriteString(String data) {
-    }    
-
-    //%
-    String uartReadUntil(String del) {
-    }    
-
-
-    /**
-    * Sends a buffer of data via Bluetooth UART
-    */
-    //%
-    void uartWriteBuffer(Buffer buffer) {
-    }
-
-    /**
-    * Reads buffered UART data into a buffer
-    */
-    //%
-    Buffer uartReadBuffer() {
-        startUartService();
-        int bytes = uart->rxBufferedSize();
-        auto buffer = mkBuffer(NULL, bytes);
-        int read = uart->read(buffer->data, buffer->length);
-        // read failed
-        if (read < 0) {
-            decrRC(buffer);
-            return mkBuffer(NULL, 0);
-        }
-        // could not fill the buffer
-        if (read != buffer->length) {
-            auto tmp = mkBuffer(buffer->data, read); 
-            decrRC(buffer); 
-            buffer = tmp;
-        }
-        return buffer;
-    }
-
-    /**
-    * Registers an event to be fired when one of the delimiter is matched.
-    * @param delimiters the characters to match received characters against.
-    */
-    //% help=bluetooth/on-uart-data-received
-    //% weight=18 blockId=bluetooth_on_data_received block="bluetooth|on data received %delimiters=serial_delimiter_conv"
-    void onUartDataReceived(String delimiters, Action body) {
-    }
-
-    /**
      * Register code to run when the micro:bit is connected to over Bluetooth
      * @param body Code to run when a Bluetooth connection is established
      */
     //% help=bluetooth/on-bluetooth-connected weight=20
     //% blockId=bluetooth_on_connected block="on bluetooth connected" blockGap=8
     //% parts="bluetooth"
-    void onBluetoothConnected(Action body) {
+    void onBluetoothConnected(Action handler) {
+        registerWithDal(DEVICE_ID_BLE, (int) 0, handler);
     }    
 
      /**
@@ -136,32 +34,13 @@ namespace bluetooth {
     //% help=bluetooth/on-bluetooth-disconnected weight=19
     //% blockId=bluetooth_on_disconnected block="on bluetooth disconnected"
     //% parts="bluetooth"
-    void onBluetoothDisconnected(Action body) {
+    void onBluetoothDisconnected(Action handler) {
+        registerWithDal(DEVICE_ID_BLE, (int) 1, handler);
+
     } 
 
     const int8_t CALIBRATED_POWERS[] = {-49, -37, -33, -28, -25, -20, -15, -10};
-    /**
-    * Advertise an Eddystone URL
-	* @param url the url to transmit. Must be no longer than the supported eddystone url length, eg: "https://makecode.com"
-	* @param power power level between 0 and 7, eg: 7
-    * @param connectable true to keep bluetooth connectable for other services, false otherwise.
-    */
-    //% blockId=eddystone_advertise_url block="bluetooth advertise url %url|with power %power|connectable %connectable"
-    //% parts=bluetooth weight=11 blockGap=8
-    //% help=bluetooth/advertise-url blockExternalInputs=1
-    void advertiseUrl(String url, int power, bool connectable) {
-    }
-
-    /**
-    * Advertise an Eddystone UID
-	* @param nsAndInstance 16 bytes buffer of namespace (bytes 0-9) and instance (bytes 10-15)
-	* @param power power level between 0 and 7, eg: 7
-    * @param connectable true to keep bluetooth connectable for other services, false otherwise.
-    */
-    //% parts=bluetooth weight=12 advanced=true
-    void advertiseUidBuffer(Buffer nsAndInstance, int power, bool connectable) {
-    }
-
+    
     /**
     * Sets the bluetooth transmit power between 0 (minimal) and 7 (maximum).
     * @param power power level between 0 (minimal) and 7 (maximum), eg: 7.
@@ -170,13 +49,4 @@ namespace bluetooth {
     //% blockId=bluetooth_settransmitpower block="bluetooth set transmit power %power"
     void setTransmitPower(int power) {
     }
-
-    /**
-    * Stops advertising Eddystone end points
-    */
-    //% blockId=eddystone_stop_advertising block="bluetooth stop advertising"
-    //% parts=bluetooth weight=10
-    //% help=bluetooth/stop-advertising advanced=true
-    void stopAdvertising() {
-    } 
 }

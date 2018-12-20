@@ -19,7 +19,8 @@
         "pressure" : "file:../pressure",
         "accelerometer" : "file:../accelerometer",
         "distance" : "file:../distance",
-        "lcd" : "file:../lcd"
+        "lcd" : "file:../lcd",
+        "bluetooth" : "file:../bluetooth"
     },
     "public": true
 }
