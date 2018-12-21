@@ -36,7 +36,6 @@ namespace bluetooth {
     //% parts="bluetooth"
     void onBluetoothDisconnected(Action handler) {
         registerWithDal(DEVICE_ID_BLE, (int) 1, handler);
-
     } 
 
     const int8_t CALIBRATED_POWERS[] = {-49, -37, -33, -28, -25, -20, -15, -10};
