@@ -20,7 +20,8 @@
         "accelerometer" : "file:../accelerometer",
         "distance" : "file:../distance",
         "lcd" : "file:../lcd",
-        "bluetooth" : "file:../bluetooth"
+        "bluetooth" : "file:../bluetooth",
+        "wifi" : "file:../wifi"
     },
     "public": true
 }
