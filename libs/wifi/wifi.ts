@@ -129,7 +129,7 @@ namespace wifi {
     }
 
 
-    //%subcategory=IoT Services
+    //%subcategory="IoT Services"
     //% blockId=wifi_set_thingspeak
 	//% block="Send ThingSpeak|key %key|field1 %field1|field2 %field2"
 	//% weight=70	
@@ -137,7 +137,7 @@ namespace wifi {
     export function sendThingspeak(key: string, field1: number, field2: number): void {
     }
     
-    //%subcategory=IoT Services
+    //%subcategory="IoT Services"
     //% blockId=wifi_set_ifttt
 	//% block="Send IFTTT|key %key|event_name %event|value1 %value1|value2 %value2"
 	//% weight=60	
