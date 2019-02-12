@@ -26,7 +26,6 @@ namespace pxsim {
         CompassBoard,
         AccelerometerBoard,
         LCDBoard,
-        PixelBoard,
         StorageBoard {
         // state & update logic for component services
         view: SVGElement;
