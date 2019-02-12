@@ -59,7 +59,7 @@ namespace LCD {
     //% blockGap=8
     //% parts=LCD trackArgs=0
     void ShowString(String s) {
-        getWLCD()->lcd.print(s->data);
+        getWLCD()->lcd.print(s->getUTF8Data());
     }
 
     /**
@@ -73,7 +73,7 @@ namespace LCD {
     //% blockGap=8
     //% parts=LCD trackArgs=0
     void ShowValue(String name, int value) {
-        getWLCD()->lcd.print(name->data);
+        getWLCD()->lcd.print(name->getUTF8Data());
         getWLCD()->lcd.print(':');
         getWLCD()->lcd.print(value);
     }

@@ -7,7 +7,7 @@
 #include "stm32l4xxSPI.h"
 #include "stm32l4xxI2C.h"
 #include "stm32l4xxPin.h"
-#include "stm32l4xxTimer.h"
+#include "stm32l4xxLowLevelTimer.h"
 
 #include "pinmap.h"
 
@@ -25,7 +25,7 @@
 #define CODAL_SPI codal::STM32L4xxSPI
 #define CODAL_I2C codal::STM32L4xxI2C
 #define CODAL_PIN codal::STM32L4xxPin
-#define CODAL_TIMER codal::STM32L4xxTimer
+#define CODAL_TIMER codal::Timer
 #define CODAL_SERIAL codal::STM32L4xxSimpleSerial
 
 #define CODAL_ACCELEROMETER codal::STM32IotNodeAccelerometer

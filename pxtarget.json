@@ -21,6 +21,7 @@
         "libs/jacdac",
         "libs/jacdac-drivers",
         "libs/bluetooth",
+        "libs/wifi",
         "libs/tests"
     ],
     "serial": {
@@ -93,7 +94,7 @@
         "codalTarget": {
             "name": "codal-stm32-iot-node",
             "url": "https://github.com/LabAixBidouille-STM32/codal-stm32-iot-node",
-            "branch": "v0.12.3",
+            "branch": "v0.12.5",
             "type": "git"
         },
         "codalBinary": "STM32_IOT_NODE",

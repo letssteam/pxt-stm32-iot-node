@@ -1,4 +1,5 @@
 #include "pxt.h"
+#include "stm32l4xxLowLevelTimer.h"
 #include "stm32l4xxSimpleSerial.h"
 #include "stm32l4xxI2C.h"
 
@@ -6,6 +7,9 @@ namespace pxt {
 
 static codal::STM32L4xxSimpleSerial *serial;
 static codal::STM32L4xxI2C *i2c2;
+
+STM32L4xxLowLevelTimer lowTimer(TIM5, TIM5_IRQn);
+CODAL_TIMER devTimer(lowTimer);
 
 static void initRandomSeed() {
     int seed = 0xC0DA1;
@@ -32,5 +36,5 @@ void platform_init() {
 }
 
 void cpu_clock_init() {
-   devTimer.init(); 
+   //devTimer.init(); 
 }
