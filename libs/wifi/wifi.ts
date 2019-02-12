@@ -18,7 +18,7 @@ class PacketMqtt {
 /**
  * Support for additional wifi services.
  */
-//%weight=96 icon="\uf1eb" color=#1174EE 
+//%weight=40 icon="\uf1eb" color=#ff5caa 
 namespace wifi {
     let ERROR = false;
 
