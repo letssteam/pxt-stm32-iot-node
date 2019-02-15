@@ -100,97 +100,78 @@ namespace pxt.editor {
     }
 
     function showUploadInstructionsAsync(fn: string, url: string, confirmAsync: (options: any) => Promise<number>) {
-        const boardName = Util.htmlEscape(pxt.appTarget.appTheme.boardName || "???");
-        const boardDriveName = Util.htmlEscape(pxt.appTarget.appTheme.driveDisplayName || pxt.appTarget.compile.driveName || "???");
+            let resolve: (thenableOrResult?: void | PromiseLike<void>) => void;
+            let reject: (error: any) => void;
+            const deferred = new Promise<void>((res, rej) => {
+                resolve = res;
+                reject = rej;
+            });
+            const boardName = pxt.appTarget.appTheme.boardName || "???";
+            const boardDriveName = pxt.appTarget.appTheme.driveDisplayName || pxt.appTarget.compile.driveName || "???";
 
-        // https://msdn.microsoft.com/en-us/library/cc848897.aspx
-        // "For security reasons, data URIs are restricted to downloaded resources.
-        // Data URIs cannot be used for navigation, for scripting, or to populate frame or iframe elements"
-        const userDownload = pxt.BrowserUtils.isBrowserDownloadWithinUserContext();
-        const downloadAgain = !pxt.BrowserUtils.isIE() && !pxt.BrowserUtils.isEdge();
-        const docUrl = pxt.appTarget.appTheme.usbDocs;
+            // https://msdn.microsoft.com/en-us/library/cc848897.aspx
+            // "For security reasons, data URIs are restricted to downloaded resources. 
+            // Data URIs cannot be used for navigation, for scripting, or to populate frame or iframe elements"
+            const downloadAgain = !pxt.BrowserUtils.isIE() && !pxt.BrowserUtils.isEdge();
+            const docUrl = pxt.appTarget.appTheme.usbDocs;
+            const saveAs = pxt.BrowserUtils.hasSaveAs();
 
-        const body =
-            userDownload
-                ? lf("Click 'Download' to open the {0} app.", pxt.appTarget.appTheme.boardName || "")
-                : undefined;
-        const htmlBody = !userDownload ?
-            `<div class="ui grid stackable">
-            <div class="column sixteen wide">
-                <div class="ui grid">
-                    <div class="row">
-                        <div class="column">
-                            <div class="ui two column grid padded">
-                                <div class="column">
-                                    <div class="ui">
-                                        <div class="image">
-                                            <img class="ui medium rounded image" src="./static/download/connect.png" style="margin-bottom:1rem;" />
-                                        </div>
-                                        <div class="content">
-                                            <div class="description">
-                                                <span class="ui purple circular label">1</span>
-                                                <strong>${lf("Connect the {0} to your computer with a USB cable", boardName)}</strong>
-                                                <br />
-                                                <span style="font-size:small">${lf("Use the microUSB port on the top of the {0}", boardName)}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="ui">
-                                        <div class="image">
-                                            <img class="ui medium rounded image" src="./static/download/transfer.png" style="margin-bottom:1rem;" />
-                                        </div>
-                                        <div class="content">
-                                            <div class="description">
-                                                <span class="ui purple circular label">2</span>
-                                                <strong>${lf("Move the file to the {0}", boardName)}</strong>
-                                                <br />
-                                                <span style="font-size:small">${lf("Locate the downloaded file and drag it to the <strong>{0}</strong> drive", boardDriveName)}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            const htmlBody = `
+            <div class="ui three column grid stackable">
+                <div class="column">
+                    <div class="ui">
+                        <div class="content">
+                            <div class="description">
+                                <span class="ui blue circular label">1</span>
+                                ${lf("Take the USB cable you connected to your computer. Plug it into your {0}.", boardName)}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>` : undefined;
+                <div class="column">
+                    <div class="ui">
+                        <div class="content">
+                            <div class="description">
+                                <span class="ui blue circular label">2</span>
+                                ${lf("Press the RESET button to go into programming mode. When the lights turn green, you're ready to go.")}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui">
+                        <div class="content">
+                            <div class="description">
+                                <span class="ui blue circular label">3</span>
+                                ${lf("Click and drag the file you downloaded onto {0}.", boardDriveName)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
 
-        const buttons: any[] = [];
-
-        if (downloadAgain) {
-            buttons.push({
-                label: userDownload ? lf("Download") : fn,
-                icon: "download",
-                class: `${userDownload ? "primary" : "lightgrey"}`,
-                url,
-                fileName: fn
-            });
+            return confirmAsync({
+                header: lf("Download completed..."),
+                htmlBody,
+                hasCloseIcon: true,
+                hideCancel: true,
+                hideAgree: true,
+                size: 'large',
+                buttons: [downloadAgain ? {
+                    label: fn,
+                    icon: "download",
+                    class: "lightgrey focused",
+                    url,
+                    fileName: fn
+                } : undefined, docUrl ? {
+                    label: lf("Help"),
+                    icon: "help",
+                    class: "lightgrey focused",
+                    url: docUrl
+                } : undefined]
+                //timeout: 20000
+            }).then(() => { });
         }
-
-        if (docUrl) {
-            buttons.push({
-                label: lf("Help"),
-                icon: "help",
-                className: "lightgrey",
-                url: docUrl
-            });
-        }
-
-        return confirmAsync({
-            header: lf("Download to your {0}", pxt.appTarget.appTheme.boardName),
-            body,
-            htmlBody,
-            hasCloseIcon: true,
-            hideCancel: true,
-            hideAgree: true,
-            className: 'downloaddialog',
-            buttons
-            //timeout: 20000
-        }).then(() => { });
-    }
 
     function webUsbPairDialogAsync(confirmAsync: (options: any) => Promise<number>): Promise<number> {
         const boardName = pxt.appTarget.appTheme.boardName || "???";
@@ -275,26 +256,11 @@ namespace pxt.editor {
         const res: pxt.editor.ExtensionResult = {
             "webUsbPairDialogAsync" : webUsbPairDialogAsync,
             "showUploadInstructionsAsync" : showUploadInstructionsAsync,
-            "deployCoreAsync": (resp: pxtc.CompileResult) => { 
-                let hexInput = resp.outfiles[pxt.outputName()];
-                let binOutput = hexToBinary(hexInput);
-                const fileName = resp.downloadFileBaseName + ".bin";
-                
-                let url = pxt.BrowserUtils.browserDownloadUInt8Array(
-                    binOutput,
-                    fileName,
-                    "octet/stream",
-                    resp.userContextWindow
-                );
-                
-                if (!resp.success) {
-                    return Promise.resolve();
-                }
-            
-                return showUploadInstructionsAsync(fileName, url, resp.confirmAsync);
-            }
-        }; 
+            "deployCoreAsync": deployCoreAsync
+        };
+        
         pxt.commands.deployCoreAsync = deployCoreAsync;
+        
         return Promise.resolve<pxt.editor.ExtensionResult>(res);
     }
 }
