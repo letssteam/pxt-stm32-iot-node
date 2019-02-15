@@ -25,7 +25,7 @@
         "libs/tests"
     ],
     "serial": {
-        "useHF2": true,
+        "useHF2": false,
         "useEditor": true,
         "log": true,
         "editorTheme": {
@@ -197,7 +197,7 @@
         },
         "allowPackageExtensions": true,
         "extendEditor": true,
-        "extendFieldEditors": true,
+        "extendFieldEditors": false,
         "crowdinProject": "kindscript",
         "selectLanguage": true,
                 

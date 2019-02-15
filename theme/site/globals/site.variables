@@ -27,7 +27,7 @@
 
 @primaryColor: @blue;
 @secondaryColor: @pink;
-@pageBackground: @darkBlue;
+@pageBackground: @grey;
 
 /*--------------
    Form Input
