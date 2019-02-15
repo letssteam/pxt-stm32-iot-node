@@ -25,8 +25,6 @@
     "built/*.js",
     "built/*.json",
     "built/*.d.ts",
-    "built/hexcache",
-    "built/web",
     "sim/public",
     "docs/*.md",
     "docs/*/*.md",
@@ -47,11 +45,16 @@
     "@types/web-bluetooth": "0.0.4"
   },
   "dependencies": {
-    "pxt-common-packages": "6.3.9",
-    "pxt-core": "5.5.10"
+    "glob-exec": "^0.1.1",
+    "pxt-common-packages": "6.4.5",
+    "pxt-core": "5.5.12",
+    "serialport": "7.1.4",
+    "svgo": "^1.1.1",
+    "webusb": "^1.1.0"
   },
   "scripts": {
     "start": "node node_modules/pxt-core/built/pxt.js serve --cloud --no-browser -h \"0.0.0.0\" -w 3233 -p 3232",
-    "test": "node node_modules/pxt-core/built/pxt.js travis"
+    "test": "node node_modules/pxt-core/built/pxt.js travis",
+    "svgo": "glob-exec --foreach \"**/boardhd.svg\" -- \"svgo --config=svgo.yml {{file}} -o {{file.dir}}/board.svg \""
   }
 }

@@ -79,6 +79,26 @@ namespace pxt.editor {
         return res;
     }
 
+    function deployCoreAsync(resp: pxtc.CompileResult, d: pxt.commands.DeployOptions = {}): Promise<void> {
+        let hexInput = resp.outfiles[pxt.outputName()];
+        let binOutput = hexToBinary(hexInput);
+        const fileName = resp.downloadFileBaseName + ".bin";
+        
+        let url = pxt.BrowserUtils.browserDownloadUInt8Array(
+            binOutput,
+            fileName,
+            "octet/stream",
+            resp.userContextWindow
+        );
+        
+        if (!resp.success) {
+            return Promise.resolve();
+        }
+    
+        return showUploadInstructionsAsync(fileName, url, resp.confirmAsync);
+        //return pxt.commands.saveOnlyAsync(resp);
+    }
+
     function showUploadInstructionsAsync(fn: string, url: string, confirmAsync: (options: any) => Promise<number>) {
         const boardName = Util.htmlEscape(pxt.appTarget.appTheme.boardName || "???");
         const boardDriveName = Util.htmlEscape(pxt.appTarget.appTheme.driveDisplayName || pxt.appTarget.compile.driveName || "???");
@@ -90,7 +110,8 @@ namespace pxt.editor {
         const downloadAgain = !pxt.BrowserUtils.isIE() && !pxt.BrowserUtils.isEdge();
         const docUrl = pxt.appTarget.appTheme.usbDocs;
 
-        const body = userDownload
+        const body =
+            userDownload
                 ? lf("Click 'Download' to open the {0} app.", pxt.appTarget.appTheme.boardName || "")
                 : undefined;
         const htmlBody = !userDownload ?
@@ -171,9 +192,88 @@ namespace pxt.editor {
         }).then(() => { });
     }
 
+    function webUsbPairDialogAsync(confirmAsync: (options: any) => Promise<number>): Promise<number> {
+        const boardName = pxt.appTarget.appTheme.boardName || "???";
+        const docUrl = pxt.appTarget.appTheme.usbDocs;
+        const htmlBody = `
+        <div class="ui grid stackable">
+            <div class="column five wide" style="background-color: #FFFFCE;">
+                <div class="ui header">${lf("First time here?")}</div>
+                <strong style="font-size:small">${lf("You must have version 0249 or above of the firmware")}</strong>
+                <div style="justify-content: center;display: flex;padding: 1rem;">
+                    <img class="ui image" src="./static/download/firmware.png" style="height:100px;" />
+                </div>
+                <a href="${docUrl}/webusb/troubleshoot" target="_blank">${lf("Check your firmware version here and update if needed")}</a>
+            </div>
+            <div class="column eleven wide">
+                <div class="ui grid">
+                    <div class="row">
+                        <div class="column">
+                            <div class="ui two column grid padded">
+                                <div class="column">
+                                    <div class="ui">
+                                        <div class="image">
+                                            <img class="ui medium rounded image" src="./static/download/connect.png" style="margin-bottom:1rem;" />
+                                        </div>
+                                        <div class="content">
+                                            <div class="description">
+                                                <span class="ui purple circular label">1</span>
+                                                <strong>${lf("Connect the {0} to your computer with a USB cable", boardName)}</strong>
+                                                <br />
+                                                <span style="font-size:small">${lf("Use the microUSB port on the top of the {0}", boardName)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="ui">
+                                        <div class="image">
+                                            <img class="ui medium rounded image" src="./static/download/pair.png" style="margin-bottom:1rem;" />
+                                        </div>
+                                        <div class="content">
+                                            <div class="description">
+                                                <span class="ui purple circular label">2</span>
+                                                <strong>${lf("Pair your {0}", boardName)}</strong>
+                                                <br />
+                                                <span style="font-size:small">${lf("Click 'Pair device' below and select <strong>BBC micro:bit CMSIS-DAP</strong> or <strong>DAPLink CMSIS-DAP</strong> from the list")}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        const buttons: any[] = [];
+        if (docUrl) {
+            buttons.push({
+                label: lf("Help"),
+                icon: "help",
+                className: "lightgrey",
+                url: `${docUrl}/webusb`
+            });
+        }
+
+        return confirmAsync({
+            header: lf("Pair device for one-click downloads"),
+            htmlBody,
+            hasCloseIcon: true,
+            agreeLbl: lf("Pair device"),
+            agreeIcon: "usb",
+            hideCancel: true,
+            className: 'downloaddialog',
+            buttons
+        });
+    }
+
+
     initExtensionsAsync = function (opts: pxt.editor.ExtensionOptions): Promise<pxt.editor.ExtensionResult> {
-        pxt.debug('loading pxt-stm32-iot-node target extensions...')
+        pxt.log('loading pxt-stm32-iot-node target extensions...')
         const res: pxt.editor.ExtensionResult = {
+            "webUsbPairDialogAsync" : webUsbPairDialogAsync,
             "showUploadInstructionsAsync" : showUploadInstructionsAsync,
             "deployCoreAsync": (resp: pxtc.CompileResult) => { 
                 let hexInput = resp.outfiles[pxt.outputName()];
@@ -193,7 +293,8 @@ namespace pxt.editor {
             
                 return showUploadInstructionsAsync(fileName, url, resp.confirmAsync);
             }
-        };
+        }; 
+        pxt.commands.deployCoreAsync = deployCoreAsync;
         return Promise.resolve<pxt.editor.ExtensionResult>(res);
     }
 }
