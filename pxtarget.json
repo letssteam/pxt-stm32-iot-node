@@ -83,7 +83,7 @@
         "listsBlocks": true,
         "functionBlocks": true,
         "onStartNamespace": "loops",
-        "onStartColor": "#40bf4a",
+        "onStartColor": "#0082FB",
         "onStartWeight": 100,
         "pauseUntilBlock": {
             "category": "loops"
@@ -186,7 +186,7 @@
             "insertionMarkerOpacity": 0.5
         },
         "blockColors": {
-            "loops": "#40bf4a",
+            "loops": "#4bf4a",
             "logic": "#4cbfe6",
             "math": "#9966ff",
             "variables": "#FF6680",
