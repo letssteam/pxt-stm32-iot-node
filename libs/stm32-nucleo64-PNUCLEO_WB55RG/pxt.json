@@ -3,6 +3,7 @@
     "description": "PNUCLEO_WB55RG - beta",
     "files": [
         "README.md",
+        "ns.ts",
         "config.ts",
         "device.d.ts",
         "board.json",
