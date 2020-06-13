@@ -1,0 +1,12 @@
+{
+    "name": "{0}",
+    "dependencies": {
+        "nucleo-f411re": "file:../stm32-nucleo64-NUCLEO_F411RE"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ]
+}
