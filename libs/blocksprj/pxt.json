@@ -1,7 +1,7 @@
 {
     "name": "{0}",
     "dependencies": {
-        "nucleo-f411re": "file:../stm32-nucleo64-NUCLEO_F411RE"
+        "stm32-nucleo64-NUCLEO_F411RE": "file:../stm32-nucleo64-NUCLEO_F411RE"
     },
     "description": "",
     "files": [

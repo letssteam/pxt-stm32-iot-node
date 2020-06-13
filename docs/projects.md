@@ -23,7 +23,7 @@
     {
         "name": "Boards",
         "url": "/boards",
-        "imageUrl": "/static/libs/adafruit-circuit-playground-express.jpg"
+        "imageUrl": "/static/libs/bead-servo.jpg"
     }
 ]
 ```

@@ -1,4 +1,5 @@
 # Projects
+
 * [Nucleo 32](/boards/stm32-nucleo32)
 * [Nucleo 64](/boards/stm32-nucleo64)
   * [P-Nucleo-WB55RG Board](/boards/stm32-nucleo64-PNUCLEO_WB55RG)
