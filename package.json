@@ -1,6 +1,6 @@
 {
     "name": "pxt-stm32-iot_node",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Microsoft MakeCode STM32 Boards",
     "public": true,
     "keywords": [
